@@ -29,8 +29,7 @@ jobs:
   build-debug:
     name: 🔨 Build Debug APK
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event.inputs.build_type == 'debug'
-
+    if: github.event_name == 'push' || github.event.inputs.build_type == 'debug' || github.event.inputs.build_type == ''
     steps:
       # 1. 檢出代碼
       - name: 📥 Checkout repository
