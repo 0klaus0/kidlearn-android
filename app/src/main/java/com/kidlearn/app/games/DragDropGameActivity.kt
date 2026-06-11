@@ -76,7 +76,7 @@ class DragDropGameActivity : AppCompatActivity() {
             val btn = Button(this).apply {
                 text = color.emoji
                 textSize = 48f
-                textStyle = android.graphics.Typeface.BOLD
+                typeface = android.graphics.Typeface.DEFAULT_BOLD
                 minHeight = resources.getDimensionPixelSize(R.dimen.button_large_height)
                 layoutParams = android.widget.LinearLayout.LayoutParams(
                     0,

@@ -55,7 +55,7 @@ class ParentLoginActivity : AppCompatActivity() {
             val btn = Button(this).apply {
                 text = key
                 textSize = 28f
-                textStyle = android.graphics.Typeface.BOLD
+                typeface = android.graphics.Typeface.DEFAULT_BOLD
                 layoutParams = LinearLayout.LayoutParams(0, size, 1f).apply {
                     setMargins(margin, margin, margin, margin)
                 }

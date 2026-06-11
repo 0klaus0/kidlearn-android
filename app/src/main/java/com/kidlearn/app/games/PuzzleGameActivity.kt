@@ -78,7 +78,7 @@ class PuzzleGameActivity : AppCompatActivity() {
             val btn = Button(this).apply {
                 text = num.toString()
                 textSize = 36f
-                textStyle = android.graphics.Typeface.BOLD
+                typeface = android.graphics.Typeface.DEFAULT_BOLD
                 tag = num  // 用 tag 存储数字
                 setPadding(0, 0, 0, 0)
                 minHeight = resources.getDimensionPixelSize(R.dimen.button_large_height)

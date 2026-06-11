@@ -57,7 +57,7 @@ class ShapesActivity : AppCompatActivity() {
             val btn = Button(this).apply {
                 text = item.emoji
                 textSize = 48f
-                textStyle = android.graphics.Typeface.BOLD
+                typeface = android.graphics.Typeface.DEFAULT_BOLD
                 setPadding(0, resources.getDimensionPixelSize(R.dimen.spacing_medium),
                     0, resources.getDimensionPixelSize(R.dimen.spacing_medium))
                 minHeight = resources.getDimensionPixelSize(R.dimen.learn_card_size)

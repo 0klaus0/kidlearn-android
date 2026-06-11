@@ -93,7 +93,7 @@ class MatchingGameActivity : AppCompatActivity() {
             val btn = Button(this).apply {
                 text = value.toString()
                 textSize = 48f
-                textStyle = android.graphics.Typeface.BOLD
+                typeface = android.graphics.Typeface.DEFAULT_BOLD
                 minHeight = resources.getDimensionPixelSize(com.kidlearn.app.R.dimen.button_large_height)
                 layoutParams = android.widget.LinearLayout.LayoutParams(
                     0,

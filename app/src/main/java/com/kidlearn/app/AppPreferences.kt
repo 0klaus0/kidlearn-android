@@ -220,7 +220,7 @@ class AppPreferences(context: Context) {
         val last = prefs.getString(KEY_LAST_PLAY_DATE, "")
         if (last == today) return
 
-        val lastDate = if (last.isNotEmpty()) {
+        val lastDate = if (last?.isNotEmpty() == true) {
             val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             sdf.parse(last)
         } else null
