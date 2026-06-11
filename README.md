@@ -1,8 +1,32 @@
-# KidLearn 儿童学习娱乐应用
+# ☀️ KidLearn 快乐学习 - 儿童 Android 应用
+
+[![Android CI](https://github.com/0klaus0/kidlearn-android/actions/workflows/android.yml/badge.svg)](https://github.com/0klaus0/kidlearn-android/actions)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Min SDK](https://img.shields.io/badge/minSdk-26%20%7C%20Android%208.0-green.svg)](build.gradle)
+[![Target SDK](https://img.shields.io/badge/targetSdk-34%20%7C%20Android%2014-orange.svg)](build.gradle)
 
 一款面向 2-6 岁低龄儿童的 Android 学习娱乐应用，严格遵循儿童应用设计规范。
 
-## 📱 项目信息
+---
+
+## 📥 最新 APK 下载
+
+> **每次推送代码到 main 分支，GitHub Actions 会自动构建并生成 APK！**
+
+### Debug APK（自动构建）
+1. 访问 **Actions** 页面：https://github.com/0klaus0/kidlearn-android/actions
+2. 点击左侧 **"🔨 Build Debug APK"** 工作流
+3. 点击最新的 **Run**（绿色勾 ✅ 表示成功）
+4. 滚动到页面底部 **Artifacts** 区域
+5. 点击 **"app-debug-apk"** 下载 ZIP 包
+6. 解压后得到 `app-debug.apk`，安装到手机即可测试
+
+### Release APK（需配置签名，可选）
+配置 keystore 后可通过手动触发 `workflow_dispatch` → 选择 `release` 构建。
+
+---
+
+## 🚀 快速开始
 
 - **应用名称**：快乐学习（KidLearn）
 - **目标年龄**：2-6 岁
