@@ -1,0 +1,36 @@
+# Android 构建文件
+*.iml
+.gradle/
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+/.idea/modules.xml
+/.idea/settings.xml
+.DS_Store
+/build
+/app/build
+/captures
+.externalNativeBuild
+.cxx
+/app/release
+*.apk
+*.aab
+
+# Emacs / Vim 临时文件
+*~
+\#*\#
+.\#*
+*.swp
+*.swo
+
+# OS 生成文件
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Proguard / 签名
+/app/proguard-rules.pro
+/app/signing-config.gradle
+
+# 日志
+*.log

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 家长控制主界面布局 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_main"
+    android:padding="@dimen/spacing_large">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:text="←"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_card"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="家长控制面板"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
+
+        <View
+            android:layout_width="56dp"
+            android:layout_height="56dp" />
+    </LinearLayout>
+
+    <!-- 儿童学习统计摘要 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_card"
+        android:backgroundTint="@color/primary_light"
+        android:padding="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:layout_marginBottom="@dimen/spacing_medium">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="儿童学习概况"
+            android:textSize="@dimen/text_medium"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:paddingBottom="@dimen/spacing_small" />
+
+        <TextView
+            android:id="@+id/tvSummaryStars"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⭐ 累计获得星星：0"
+            android:textSize="@dimen/text_medium"
+            android:textColor="@color/text_secondary"
+            android:padding="@dimen/spacing_small" />
+
+        <TextView
+            android:id="@+id/tvSummaryTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⏱ 今日学习：0 分钟"
+            android:textSize="@dimen/text_medium"
+            android:textColor="@color/text_secondary"
+            android:padding="@dimen/spacing_small" />
+
+        <TextView
+            android:id="@+id/tvSummaryStreak"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🔥 连续学习：0 天"
+            android:textSize="@dimen/text_medium"
+            android:textColor="@color/text_secondary"
+            android:padding="@dimen/spacing_small" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 时间设置 -->
+            <Button
+                android:id="@+id/btnTimeLimit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/button_min_height"
+                android:text="⏱ 使用时间限制"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                android:background="@drawable/bg_card"
+                android:textColor="@color/text_primary"
+                android:padding="@dimen/spacing_medium"
+                android:layout_marginVertical="@dimen/spacing_small" />
+
+            <!-- 学习进度 -->
+            <Button
+                android:id="@+id/btnProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/button_min_height"
+                android:text="📊 学习进度追踪"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                android:background="@drawable/bg_card"
+                android:textColor="@color/text_primary"
+                android:padding="@dimen/spacing_medium"
+                android:layout_marginVertical="@dimen/spacing_small" />
+
+            <!-- 内容管理 -->
+            <Button
+                android:id="@+id/btnContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/button_min_height"
+                android:text="📚 应用内容管理"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                android:background="@drawable/bg_card"
+                android:textColor="@color/text_primary"
+                android:padding="@dimen/spacing_medium"
+                android:layout_marginVertical="@dimen/spacing_small" />
+
+            <!-- 修改密码 -->
+            <Button
+                android:id="@+id/btnChangePwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/button_min_height"
+                android:text="🔒 修改家长密码"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                android:background="@drawable/bg_card"
+                android:textColor="@color/text_primary"
+                android:padding="@dimen/spacing_medium"
+                android:layout_marginVertical="@dimen/spacing_small" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

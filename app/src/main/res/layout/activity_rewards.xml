@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 奖励/成就展示页布局 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_bar_height"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/purple"
+        android:paddingHorizontal="@dimen/spacing_medium">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:text="←"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_card"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/title_rewards"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginHorizontal="@dimen/spacing_small" />
+
+        <Button
+            android:id="@+id/btnHome"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:text="🏠"
+            android:textSize="28sp"
+            android:background="@drawable/bg_card" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_large">
+
+            <!-- 星星统计区 -->
+            <LinearLayout
+                android:id="@+id/starSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:backgroundTint="@color/yellow"
+                android:padding="@dimen/spacing_large"
+                android:layout_marginBottom="@dimen/spacing_medium">
+
+                <TextView
+                    android:id="@+id/tvStarsCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="⭐ 星星：0"
+                    android:textSize="@dimen/text_large"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/tvTotalStars"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="累计：0"
+                    android:textSize="@dimen/text_medium"
+                    android:textColor="@color/text_secondary"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/spacing_small" />
+
+                <TextView
+                    android:id="@+id/tvStreak"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="连续学习：0 天"
+                    android:textSize="@dimen/text_medium"
+                    android:textColor="@color/text_secondary"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/spacing_small" />
+            </LinearLayout>
+
+            <!-- 贴纸区 -->
+            <LinearLayout
+                android:id="@+id/linearStickers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <!-- 成就区 -->
+            <LinearLayout
+                android:id="@+id/linearAchievements"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/spacing_huge" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

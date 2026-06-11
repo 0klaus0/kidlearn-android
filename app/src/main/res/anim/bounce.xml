@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 弹跳动画：成功奖励时使用 -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/bounce_interpolator">
+    <scale
+        android:duration="600"
+        android:fromXScale="0.5"
+        android:fromYScale="0.5"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toXScale="1.2"
+        android:toYScale="1.2" />
+    <scale
+        android:duration="300"
+        android:fromXScale="1.2"
+        android:fromYScale="1.2"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:startOffset="600"
+        android:toXScale="1.0"
+        android:toYScale="1.0" />
+</set>

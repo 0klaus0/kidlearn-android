@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 游戏菜单布局 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_bar_height"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/secondary"
+        android:paddingHorizontal="@dimen/spacing_medium">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:text="←"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_card"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginHorizontal="@dimen/spacing_small" />
+
+        <Button
+            android:id="@+id/btnHome"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:text="🏠"
+            android:textSize="28sp"
+            android:background="@drawable/bg_card" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:padding="@dimen/spacing_large">
+
+            <!-- 配对游戏 -->
+            <Button
+                android:id="@+id/btnMatching"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/menu_card_size"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/spacing_small"
+                android:background="@drawable/bg_learn_card"
+                android:backgroundTint="@color/primary"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_medium"
+                android:textAllCaps="false" />
+
+            <!-- 拖拽游戏 -->
+            <Button
+                android:id="@+id/btnDrag"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/menu_card_size"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/spacing_small"
+                android:background="@drawable/bg_learn_card"
+                android:backgroundTint="@color/accent"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_medium"
+                android:textAllCaps="false" />
+
+            <!-- 拼图游戏 -->
+            <Button
+                android:id="@+id/btnPuzzle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/menu_card_size"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/spacing_small"
+                android:background="@drawable/bg_learn_card"
+                android:backgroundTint="@color/yellow"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_medium"
+                android:textAllCaps="false" />
+
+            <!-- 声音识别 -->
+            <Button
+                android:id="@+id/btnSound"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/menu_card_size"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/spacing_small"
+                android:background="@drawable/bg_learn_card"
+                android:backgroundTint="@color/green"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_medium"
+                android:textAllCaps="false" />
+
+            <!-- 涂色游戏（占整行） -->
+            <Button
+                android:id="@+id/btnColor"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/menu_card_size"
+                android:layout_columnSpan="2"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/spacing_small"
+                android:background="@drawable/bg_learn_card"
+                android:backgroundTint="@color/purple"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_large"
+                android:textAllCaps="false" />
+        </GridLayout>
+    </ScrollView>
+</LinearLayout>

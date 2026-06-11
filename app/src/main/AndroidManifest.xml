@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- 基础权限：TTS语音需要 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.KidLearn"
+        android:usesCleartextTraffic="false"
+        tools:targetApi="31">
+
+        <!-- 主入口：年龄选择 -->
+        <activity
+            android:name=".AgeSelectActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/Theme.KidLearn">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 主菜单 -->
+        <activity
+            android:name=".MainMenuActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".AgeSelectActivity" />
+
+        <!-- 数字学习 -->
+        <activity
+            android:name=".NumbersActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".MainMenuActivity" />
+
+        <!-- 字母学习 -->
+        <activity
+            android:name=".LettersActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".MainMenuActivity" />
+
+        <!-- 颜色学习 -->
+        <activity
+            android:name=".ColorsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".MainMenuActivity" />
+
+        <!-- 形状学习 -->
+        <activity
+            android:name=".ShapesActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".MainMenuActivity" />
+
+        <!-- 游戏选择 -->
+        <activity
+            android:name=".GamesActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".MainMenuActivity" />
+
+        <!-- 配对游戏 -->
+        <activity
+            android:name=".games.MatchingGameActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".GamesActivity" />
+
+        <!-- 拖拽游戏 -->
+        <activity
+            android:name=".games.DragDropGameActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".GamesActivity" />
+
+        <!-- 拼图游戏 -->
+        <activity
+            android:name=".games.PuzzleGameActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".GamesActivity" />
+
+        <!-- 声音识别游戏 -->
+        <activity
+            android:name=".games.SoundGameActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".GamesActivity" />
+
+        <!-- 涂色游戏 -->
+        <activity
+            android:name=".games.ColorGameActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".GamesActivity" />
+
+        <!-- 奖励/贴纸收藏 -->
+        <activity
+            android:name=".RewardsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".MainMenuActivity" />
+
+        <!-- 家长控制入口（密码验证） -->
+        <activity
+            android:name=".parent.ParentLoginActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".MainMenuActivity" />
+
+        <!-- 家长控制主界面 -->
+        <activity
+            android:name=".parent.ParentDashboardActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".parent.ParentLoginActivity" />
+
+        <!-- 家长控制：时间设置 -->
+        <activity
+            android:name=".parent.TimeLimitActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".parent.ParentDashboardActivity" />
+
+        <!-- 家长控制：学习进度 -->
+        <activity
+            android:name=".parent.ProgressActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".parent.ParentDashboardActivity" />
+
+        <!-- 家长控制：内容管理 -->
+        <activity
+            android:name=".parent.ContentManageActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".parent.ParentDashboardActivity" />
+
+    </application>
+
+</manifest>

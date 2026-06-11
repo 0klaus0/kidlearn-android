@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 儿童学习应用颜色配置：使用鲜艳但柔和的颜色，避免高饱和度刺眼颜色 -->
+<resources>
+    <!-- 主色调 - 3种主色调 -->
+    <color name="primary">#FFB74D</color>        <!-- 柔和橙色：主要按钮、强调色 -->
+    <color name="primary_dark">#F57C00</color>   <!-- 深橙色 -->
+    <color name="primary_light">#FFE082</color>  <!-- 浅黄色 -->
+
+    <!-- 辅助色 -->
+    <color name="secondary">#81C784</color>      <!-- 柔和绿色 -->
+    <color name="accent">#64B5F6</color>         <!-- 柔和蓝色 -->
+
+    <!-- 文本颜色 -->
+    <color name="text_primary">#3E2723</color>   <!-- 深棕色主文字，避免纯黑 -->
+    <color name="text_secondary">#5D4037</color> <!-- 棕色副文字 -->
+    <color name="text_on_primary">#FFFFFF</color>
+
+    <!-- 背景色 -->
+    <color name="bg_main">#FFF8E1</color>        <!-- 极浅黄色背景，温暖不刺眼 -->
+    <color name="bg_card">#FFFFFF</color>
+    <color name="bg_soft">#FFECB3</color>
+
+    <!-- 彩虹色系 - 学习内容使用 -->
+    <color name="red">#E57373</color>            <!-- 柔和红 -->
+    <color name="orange">#FFB74D</color>         <!-- 橙 -->
+    <color name="yellow">#FFF176</color>         <!-- 柔和黄 -->
+    <color name="green">#81C784</color>          <!-- 柔和绿 -->
+    <color name="cyan">#4DD0E1</color>           <!-- 青 -->
+    <color name="blue">#64B5F6</color>           <!-- 柔和蓝 -->
+    <color name="purple">#BA68C8</color>         <!-- 柔和紫 -->
+    <color name="pink">#F48FB1</color>           <!-- 柔和粉 -->
+
+    <!-- 系统色 -->
+    <color name="success">#66BB6A</color>
+    <color name="warning">#FFA726</color>
+    <color name="error">#EF5350</color>
+
+    <!-- 导航栏/状态栏 -->
+    <color name="status_bar">#F57C00</color>
+    <color name="nav_bar">#FFE082</color>
+</resources>

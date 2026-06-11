@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 时间限制设置页布局 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_main"
+    android:padding="@dimen/spacing_large">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:text="←"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_card"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="时间限制设置"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
+
+        <View
+            android:layout_width="56dp"
+            android:layout_height="56dp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 当前使用情况 -->
+            <TextView
+                android:id="@+id/tvCurrentUsage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="今日已学习"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/bg_card"
+                android:backgroundTint="@color/primary_light"
+                android:padding="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:lineSpacingExtra="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="每日使用时长"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:padding="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_large" />
+
+            <RadioGroup
+                android:id="@+id/dailyGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card"
+                android:backgroundTint="@color/bg_card"
+                android:padding="@dimen/spacing_small" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="每周使用时长"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:padding="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_large" />
+
+            <RadioGroup
+                android:id="@+id/weeklyGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card"
+                android:backgroundTint="@color/bg_card"
+                android:padding="@dimen/spacing_small" />
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/button_min_height"
+                android:text="保存设置"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                android:background="@drawable/bg_card"
+                android:backgroundTint="@color/primary"
+                android:textColor="@color/text_primary"
+                android:padding="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_huge" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 通用学习模块布局：顶部标题栏 + 下方卡片网格 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_main">
+
+    <!-- 顶部标题栏 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_bar_height"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/primary"
+        android:paddingHorizontal="@dimen/spacing_medium">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:text="←"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_card"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="学习"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginHorizontal="@dimen/spacing_small" />
+
+        <Button
+            android:id="@+id/btnHome"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:text="🏠"
+            android:textSize="28sp"
+            android:background="@drawable/bg_card" />
+    </LinearLayout>
+
+    <!-- 学习内容卡片网格 -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <GridLayout
+            android:id="@+id/gridLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:padding="@dimen/spacing_medium"
+            android:gravity="center" />
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 应用图标前景：圆角星形 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- 外层圆圈背景 -->
+    <path
+        android:fillColor="#FFF176"
+        android:pathData="M54,54m-40,0a40,40 0 1,0 80,0a40,40 0 1,0 -80,0" />
+
+    <!-- 大星星 -->
+    <path
+        android:fillColor="#FFB74D"
+        android:pathData="M54,22 L64,42 L86,44 L69,60 L74,82 L54,71 L34,82 L39,60 L22,44 L44,42 Z" />
+
+    <!-- 星星上的笑脸 -->
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M47,52 L50,55 L53,52" />
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M58,52 L61,55 L64,52" />
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M47,62 Q54,68 61,62" />
+</vector>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 儿童学习应用主题配置 -->
+<resources>
+
+    <style name="Theme.KidLearn" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/text_on_primary</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorOnSecondary">@color/text_on_primary</item>
+        <item name="android:windowBackground">@color/bg_main</item>
+        <item name="android:statusBarColor">@color/status_bar</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/nav_bar</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAnimationStyle">@style/Animation.KidLearn.Activity</item>
+    </style>
+
+    <style name="Animation.KidLearn.Activity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <!-- 大按钮样式 -->
+    <style name="Widget.KidLearn.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:minWidth">@dimen/button_min_width</item>
+        <item name="android:minHeight">@dimen/button_min_height</item>
+        <item name="cornerRadius">@dimen/button_round_corner</item>
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="elevation">8dp</item>
+    </style>
+
+    <!-- 彩色大按钮：数字/字母卡片 -->
+    <style name="Widget.KidLearn.BigCard">
+        <item name="android:minWidth">@dimen/learn_card_size</item>
+        <item name="android:minHeight">@dimen/learn_card_size</item>
+        <item name="android:padding">@dimen/spacing_medium</item>
+        <item name="android:textSize">@dimen/learn_card_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_learn_card</item>
+    </style>
+
+    <!-- 文本样式 -->
+    <style name="Text.KidLearn.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.KidLearn.Large" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.KidLearn.Medium" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <!-- 家长控制主题（较严肃） -->
+    <style name="Theme.KidLearn.Parent" parent="Theme.KidLearn">
+        <item name="android:windowBackground">@color/bg_soft</item>
+    </style>
+
+</resources>

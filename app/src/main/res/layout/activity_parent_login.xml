@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 家长登录页布局 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_main"
+    android:padding="@dimen/spacing_large">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:text="←"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_card"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="家长中心"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginHorizontal="@dimen/spacing_small" />
+
+        <View
+            android:layout_width="56dp"
+            android:layout_height="56dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="请输入家长密码"
+        android:textSize="@dimen/text_medium"
+        android:textColor="@color/text_secondary"
+        android:padding="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_huge" />
+
+    <!-- 密码显示 -->
+    <TextView
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text=""
+        android:textSize="48sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary"
+        android:background="@drawable/bg_card"
+        android:backgroundTint="@color/primary_light"
+        android:padding="@dimen/spacing_large"
+        android:layout_marginHorizontal="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing_medium" />
+
+    <!-- 数字键盘（使用 GridLayout） -->
+    <GridLayout
+        android:id="@+id/keypadGrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/spacing_large" />
+
+    <Button
+        android:id="@+id/btnForgot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="忘记密码？"
+        android:textSize="@dimen/text_medium"
+        android:background="@android:color/transparent"
+        android:textColor="@color/accent"
+        android:layout_marginTop="@dimen/spacing_medium" />
+
+</LinearLayout>

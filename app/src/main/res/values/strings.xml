@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 儿童学习应用文本资源 -->
+<resources>
+    <!-- 应用基本信息 -->
+    <string name="app_name">快乐学习</string>
+    <string name="app_subtitle">KidLearn - 寓教于乐</string>
+
+    <!-- 年龄选择 -->
+    <string name="select_age">选择宝宝的年龄</string>
+    <string name="age_2_3">2-3岁</string>
+    <string name="age_4_5">4-5岁</string>
+    <string name="age_5_6">5-6岁</string>
+    <string name="age_hint_2_3">基础入门：简单认知</string>
+    <string name="age_hint_4_5">进阶学习：互动游戏</string>
+    <string name="age_hint_5_6">高级挑战：全面学习</string>
+    <string name="confirm">确认</string>
+    <string name="change_age">切换年龄</string>
+
+    <!-- 主菜单 -->
+    <string name="welcome">欢迎回来！</string>
+    <string name="menu_numbers">数字</string>
+    <string name="menu_letters">字母</string>
+    <string name="menu_colors">颜色</string>
+    <string name="menu_shapes">形状</string>
+    <string name="menu_games">游戏</string>
+    <string name="menu_rewards">我的奖励</string>
+    <string name="menu_parent">家长中心</string>
+    <string name="stars_collected">已收集星星</string>
+
+    <!-- 通用按钮 -->
+    <string name="btn_back">返回</string>
+    <string name="btn_next">下一个</string>
+    <string name="btn_previous">上一个</string>
+    <string name="btn_play">播放</string>
+    <string name="btn_retry">再试一次</string>
+    <string name="btn_home">首页</string>
+
+    <!-- 数字学习 -->
+    <string name="title_numbers">学习数字</string>
+    <string name="number_zero">零</string>
+    <string name="number_one">一</string>
+    <string name="number_two">二</string>
+    <string name="number_three">三</string>
+    <string name="number_four">四</string>
+    <string name="number_five">五</string>
+    <string name="number_six">六</string>
+    <string name="number_seven">七</string>
+    <string name="number_eight">八</string>
+    <string name="number_nine">九</string>
+    <string name="number_ten">十</string>
+    <string name="tap_to_hear">点击听发音</string>
+
+    <!-- 字母学习 -->
+    <string name="title_letters">学习字母</string>
+
+    <!-- 颜色学习 -->
+    <string name="title_colors">认识颜色</string>
+    <string name="color_red">红色</string>
+    <string name="color_orange">橙色</string>
+    <string name="color_yellow">黄色</string>
+    <string name="color_green">绿色</string>
+    <string name="color_blue">蓝色</string>
+    <string name="color_cyan">青色</string>
+    <string name="color_purple">紫色</string>
+    <string name="color_pink">粉色</string>
+
+    <!-- 形状学习 -->
+    <string name="title_shapes">认识形状</string>
+    <string name="shape_circle">圆形</string>
+    <string name="shape_square">方形</string>
+    <string name="shape_triangle">三角形</string>
+    <string name="shape_rectangle">长方形</string>
+    <string name="shape_star">星形</string>
+    <string name="shape_heart">心形</string>
+
+    <!-- 游戏 -->
+    <string name="title_games">快乐游戏</string>
+    <string name="game_matching">配对游戏</string>
+    <string name="game_dragdrop">拖拽游戏</string>
+    <string name="game_puzzle">拼图游戏</string>
+    <string name="game_sound">声音识别</string>
+    <string name="game_coloring">涂色游戏</string>
+    <string name="game_select">选择游戏</string>
+    <string name="game_great">真棒！</string>
+    <string name="game_try_again">再试一次</string>
+    <string name="game_correct">正确！</string>
+    <string name="game_score">得分</string>
+
+    <!-- 奖励 -->
+    <string name="title_rewards">我的收藏</string>
+    <string name="stars">星星</string>
+    <string name="stickers">贴纸</string>
+    <string name="achievements">成就</string>
+    <string name="star_earned">获得星星！</string>
+    <string name="sticker_earned">获得贴纸！</string>
+    <string name="achievement_unlocked">成就解锁！</string>
+
+    <!-- 家长控制 -->
+    <string name="parent_title">家长中心</string>
+    <string name="parent_password">请输入家长密码</string>
+    <string name="parent_password_hint">默认密码：1234</string>
+    <string name="parent_dashboard">控制面板</string>
+    <string name="parent_time_limit">使用时间</string>
+    <string name="parent_progress">学习进度</string>
+    <string name="parent_content">内容管理</string>
+    <string name="parent_settings">设置</string>
+    <string name="daily_time">每日可用时长</string>
+    <string name="weekly_time">每周可用时长</string>
+    <string name="minutes">分钟</string>
+    <string name="time_used">已使用</string>
+    <string name="time_remaining">剩余时间</string>
+    <string name="time_up">今日使用时间已用完</string>
+    <string name="save">保存</string>
+    <string name="cancel">取消</string>
+    <string name="change_password">修改密码</string>
+    <string name="enter_password">请输入密码</string>
+    <string name="confirm_password">请确认密码</string>
+    <string name="password_error">密码错误，请重试</string>
+    <string name="password_success">密码设置成功</string>
+
+    <!-- 进度报表 -->
+    <string name="progress_title">学习进度</string>
+    <string name="progress_today">今日学习</string>
+    <string name="progress_week">本周学习</string>
+    <string name="progress_total">累计学习</string>
+    <string name="progress_numbers">数字</string>
+    <string name="progress_letters">字母</string>
+    <string name="progress_colors">颜色</string>
+    <string name="progress_shapes">形状</string>
+    <string name="progress_games">游戏</string>
+    <string name="learning_time">学习时长</string>
+    <string name="completed_tasks">完成任务</string>
+    <string name="stars_earned">获得星星</string>
+
+    <!-- 音量控制 -->
+    <string name="volume">音量</string>
+    <string name="mute">静音</string>
+    <string name="unmute">开启声音</string>
+    <string name="sound_on">声音：开</string>
+    <string name="sound_off">声音：关</string>
+
+    <!-- 通用消息 -->
+    <string name="loading">加载中...</string>
+    <string name="great_job">做得好！</string>
+    <string name="excellent">太棒了！</string>
+    <string name="wonderful">真厉害！</string>
+    <string name="keep_going">继续加油！</string>
+
+    <!-- 成就列表 -->
+    <string name="ach_first_star">第一颗星</string>
+    <string name="ach_ten_stars">十星达人</string>
+    <string name="ach_fifty_stars">闪耀之星</string>
+    <string name="ach_number_master">数字大师</string>
+    <string name="ach_letter_master">字母大师</string>
+    <string name="ach_color_master">色彩大师</string>
+    <string name="ach_shape_master">形状大师</string>
+    <string name="ach_game_master">游戏达人</string>
+    <string name="ach_first_day">第一天学习</string>
+    <string name="ach_seven_days">连续7天</string>
+
+</resources>

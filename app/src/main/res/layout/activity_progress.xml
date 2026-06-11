@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 学习进度报表页布局 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_main"
+    android:padding="@dimen/spacing_large">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:text="←"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_card"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="学习进度"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
+
+        <View
+            android:layout_width="56dp"
+            android:layout_height="56dp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 今日报告 -->
+            <TextView
+                android:id="@+id/tvReportToday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="今日学习报告"
+                android:textSize="@dimen/text_medium"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/bg_card"
+                android:backgroundTint="@color/primary_light"
+                android:padding="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:lineSpacingExtra="4dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="各模块学习进度"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:padding="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_large" />
+
+            <!-- 各模块进度条容器 -->
+            <LinearLayout
+                android:id="@+id/progressContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:padding="@dimen/spacing_small"
+                android:layout_marginBottom="@dimen/spacing_large" />
+
+            <!-- 总体评价 -->
+            <TextView
+                android:id="@+id/tvEvaluation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="总体评价："
+                android:textSize="@dimen/text_medium"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/bg_card"
+                android:backgroundTint="@color/green"
+                android:padding="@dimen/spacing_medium"
+                android:lineSpacingExtra="4dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

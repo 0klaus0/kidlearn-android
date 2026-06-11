@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 涂色游戏布局 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_bar_height"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/purple"
+        android:paddingHorizontal="@dimen/spacing_medium">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:text="←"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_card"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:id="@+id/tvScore"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="得分：0"
+            android:textSize="@dimen/text_medium"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginHorizontal="@dimen/spacing_small" />
+
+        <Button
+            android:id="@+id/btnHome"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:text="🏠"
+            android:textSize="28sp"
+            android:background="@drawable/bg_card" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_large"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/tvInstruction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="选择颜色，点击图形上色"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/bg_card"
+                android:backgroundTint="@color/yellow"
+                android:padding="@dimen/spacing_medium"
+                android:layout_marginBottom="@dimen/spacing_medium" />
+
+            <!-- 当前选中颜色显示 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="当前颜色："
+                    android:textSize="@dimen/text_medium"
+                    android:textColor="@color/text_secondary"
+                    android:padding="@dimen/spacing_small" />
+
+                <FrameLayout
+                    android:id="@+id/tvCurrentColor"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_card"
+                    android:backgroundTint="@color/primary" />
+            </LinearLayout>
+
+            <!-- 颜色调色板 -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_huge"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:id="@+id/colorPalette"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:padding="@dimen/spacing_medium" />
+            </HorizontalScrollView>
+
+            <!-- 图形区（网格） -->
+            <GridLayout
+                android:id="@+id/shapeContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:gravity="center"
+                android:padding="@dimen/spacing_medium" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

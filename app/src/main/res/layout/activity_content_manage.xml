@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 内容管理页布局 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_main"
+    android:padding="@dimen/spacing_large">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:text="←"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_card"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="内容管理"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
+
+        <View
+            android:layout_width="56dp"
+            android:layout_height="56dp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 年龄组信息 -->
+            <TextView
+                android:id="@+id/tvAgeGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="当前年龄组：2-3岁"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/bg_card"
+                android:backgroundTint="@color/primary_light"
+                android:padding="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_large" />
+
+            <TextView
+                android:id="@+id/tvAgeGroup2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="说明"
+                android:textSize="@dimen/text_medium"
+                android:textColor="@color/text_secondary"
+                android:background="@drawable/bg_card"
+                android:padding="@dimen/spacing_medium"
+                android:lineSpacingExtra="4dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="模块开关（勾选启用）"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:padding="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_large" />
+
+            <LinearLayout
+                android:id="@+id/togglesContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:padding="@dimen/spacing_small"
+                android:layout_marginBottom="@dimen/spacing_medium" />
+
+            <Button
+                android:id="@+id/btnSaveContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/button_min_height"
+                android:text="保存内容设置"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                android:background="@drawable/bg_card"
+                android:backgroundTint="@color/primary"
+                android:textColor="@color/text_primary"
+                android:padding="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_medium" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
