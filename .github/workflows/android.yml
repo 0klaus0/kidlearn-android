@@ -229,22 +229,28 @@ jobs:
           path: app/build/outputs/apk/release/*.apk
           retention-days: 30
 
-      # 如果沒有配置簽名，跳過 release 構建
-      - name: ⚠️ No keystore configured
+      # 如果沒有配置簽名，生成未簽名的 Release APK
+      - name: ⚠️ No keystore configured - Building unsigned APK
         if: env.KEYSTORE_BASE64 == ''
         run: |
           echo "⚠️  Release signing not configured."
           echo ""
-          echo "To enable Release builds, add the following GitHub Secrets:"
+          echo "To enable signed Release builds, add the following GitHub Secrets:"
           echo "  KEYSTORE_BASE64    - Base64 encoded keystore file"
           echo "  KEYSTORE_PASSWORD  - Keystore password"
           echo "  KEY_ALIAS          - Key alias (e.g. kidlearn)"
           echo "  KEY_PASSWORD       - Key password"
           echo ""
-          echo "See: https://github.com/0klaus0/kidlearn-android/blob/main/DEPLOY_GUIDE.md"
-          echo ""
-          echo "Fallback: Building unsigned APK..."
-          ./gradlew assembleRelease 2>/dev/null && echo "✅ Unsigned APK built" || echo "❌ Build failed"
+          echo "Building unsigned Release APK..."
+          ./gradlew assembleRelease
+
+      - name: 📤 Upload Unsigned Release APK
+        if: env.KEYSTORE_BASE64 == ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-unsigned-apk
+          path: app/build/outputs/apk/release/*.apk
+          retention-days: 30
 
   # ============================================================
   # Job 3: 測試報告（可選）
