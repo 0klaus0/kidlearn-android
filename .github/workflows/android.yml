@@ -48,7 +48,15 @@ jobs:
       - name: 🤖 Set up Android SDK
         uses: android-actions/setup-android@v2
 
-      # 4. 給 gradlew 執行權限
+      # 4. 修復行尾符號（解決 Windows CRLF 問題）
+      - name: 🔧 Fix line endings
+        run: |
+          git config --global core.autocrlf input
+          git rm --cached -q gradlew
+          git checkout -- gradlew
+          git update-index --assume-unchanged gradlew
+
+      # 5. 給 gradlew 執行權限
       - name: 🔓 Grant execute permission
         run: chmod +x gradlew
 
@@ -119,6 +127,12 @@ jobs:
 
       - name: 🤖 Set up Android SDK
         uses: android-actions/setup-android@v2
+
+      - name: 🔧 Fix line endings
+        run: |
+          git config --global core.autocrlf input
+          git rm --cached -q gradlew 2>/dev/null || true
+          git checkout -- gradlew 2>/dev/null || true
 
       - name: 🔓 Grant execute permission
         run: chmod +x gradlew
@@ -222,6 +236,12 @@ jobs:
 
       - name: 🤖 Set up Android SDK
         uses: android-actions/setup-android@v2
+
+      - name: 🔧 Fix line endings
+        run: |
+          git config --global core.autocrlf input
+          git rm --cached -q gradlew 2>/dev/null || true
+          git checkout -- gradlew 2>/dev/null || true
 
       - name: 🔓 Grant execute permission
         run: chmod +x gradlew

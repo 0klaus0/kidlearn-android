@@ -1,0 +1,2 @@
+# 確保 gradlew 使用 LF 行尾（解決 Windows/macOS/Linux 跨平台兼容性）
+gradlew text eol=lf
