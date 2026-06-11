@@ -34,7 +34,7 @@
     </style>
 
     <!-- 彩色大按钮：数字/字母卡片 -->
-    <style name="Widget.KidLearn.BigCard">
+    <style name="Widget.KidLearn.BigCard" parent="@android:style/Widget">
         <item name="android:minWidth">@dimen/learn_card_size</item>
         <item name="android:minHeight">@dimen/learn_card_size</item>
         <item name="android:padding">@dimen/spacing_medium</item>
