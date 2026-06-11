@@ -48,17 +48,16 @@ jobs:
       - name: 🤖 Set up Android SDK
         uses: android-actions/setup-android@v2
 
-      # 4. 修復行尾符號（解決 Windows CRLF 問題）
-      - name: 🔧 Fix line endings
+      # 4. 修復 gradlew 行尾 + 設置執行權限
+      - name: 🔧 Fix gradlew line endings and permissions
         run: |
-          git config --global core.autocrlf input
-          git rm --cached -q gradlew
-          git checkout -- gradlew
-          git update-index --assume-unchanged gradlew
-
-      # 5. 給 gradlew 執行權限
-      - name: 🔓 Grant execute permission
-        run: chmod +x gradlew
+          if [ -f gradlew ]; then
+            sed -i 's/\r$//' gradlew
+            chmod +x gradlew
+          fi
+          if [ -f gradlew.bat ]; then
+            sed -i 's/\r$//' gradlew.bat
+          fi
 
       # 5. 緩存 Gradle 依賴（加速後續構建）
       - name: 📦 Cache Gradle packages
@@ -128,14 +127,15 @@ jobs:
       - name: 🤖 Set up Android SDK
         uses: android-actions/setup-android@v2
 
-      - name: 🔧 Fix line endings
+      - name: 🔧 Fix gradlew line endings and permissions
         run: |
-          git config --global core.autocrlf input
-          git rm --cached -q gradlew 2>/dev/null || true
-          git checkout -- gradlew 2>/dev/null || true
-
-      - name: 🔓 Grant execute permission
-        run: chmod +x gradlew
+          if [ -f gradlew ]; then
+            sed -i 's/\r$//' gradlew
+            chmod +x gradlew
+          fi
+          if [ -f gradlew.bat ]; then
+            sed -i 's/\r$//' gradlew.bat
+          fi
 
       - name: 📦 Cache Gradle packages
         uses: actions/cache@v4
@@ -237,14 +237,15 @@ jobs:
       - name: 🤖 Set up Android SDK
         uses: android-actions/setup-android@v2
 
-      - name: 🔧 Fix line endings
+      - name: 🔧 Fix gradlew line endings and permissions
         run: |
-          git config --global core.autocrlf input
-          git rm --cached -q gradlew 2>/dev/null || true
-          git checkout -- gradlew 2>/dev/null || true
-
-      - name: 🔓 Grant execute permission
-        run: chmod +x gradlew
+          if [ -f gradlew ]; then
+            sed -i 's/\r$//' gradlew
+            chmod +x gradlew
+          fi
+          if [ -f gradlew.bat ]; then
+            sed -i 's/\r$//' gradlew.bat
+          fi
 
       - name: 📜 Accept Android licenses
         run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses 2>/dev/null || true
