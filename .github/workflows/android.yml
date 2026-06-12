@@ -8,11 +8,14 @@ on:
       build_type:
         description: 'Build type'
         required: true
-        default: 'debug'
+        default: 'release'
         type: choice
         options:
           - debug
           - release
+
+permissions:
+  contents: write
 
 env:
   JAVA_VERSION: '17'
@@ -24,7 +27,6 @@ jobs:
   build-debug:
     name: 🔨 Build Debug APK
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event.inputs.build_type == 'debug' || github.event.inputs.build_type == ''
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
@@ -46,10 +48,12 @@ jobs:
             curl -sL "https://raw.githubusercontent.com/gradle/gradle/v8.4.0/gradle/wrapper/gradle-wrapper.jar" -o gradle/wrapper/gradle-wrapper.jar
           fi
 
-      - name: 🔧 Fix gradlew line endings
+      - name: 🔧 Fix gradlew line endings and permissions
         run: |
-          sed -i 's/\r$//' gradlew
-          chmod +x gradlew
+          if [ -f gradlew ]; then
+            sed -i 's/\r$//' gradlew
+            chmod +x gradlew
+          fi
 
       - name: 📦 Cache Gradle packages
         uses: actions/cache@v4
@@ -57,7 +61,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: ${{ runner.os }}-gradle-
 
       - name: 📜 Accept Android licenses
@@ -72,6 +76,18 @@ jobs:
           echo ""
           echo "✅ Debug APK built successfully!"
 
+      - name: 📊 Show APK info
+        run: |
+          APK_PATH="app/build/outputs/apk/debug/app-debug.apk"
+          if [ -f "$APK_PATH" ]; then
+            SIZE=$(du -h "$APK_PATH" | cut -f1)
+            echo "✅ Debug APK: $SIZE"
+            echo "📍 $APK_PATH"
+          else
+            echo "❌ APK not found!"
+            exit 1
+          fi
+
       - name: 📤 Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
@@ -82,7 +98,6 @@ jobs:
   build-release:
     name: 🚀 Build Release APK
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.build_type == 'release')
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
@@ -104,10 +119,12 @@ jobs:
             curl -sL "https://raw.githubusercontent.com/gradle/gradle/v8.4.0/gradle/wrapper/gradle-wrapper.jar" -o gradle/wrapper/gradle-wrapper.jar
           fi
 
-      - name: 🔧 Fix gradlew line endings
+      - name: 🔧 Fix gradlew line endings and permissions
         run: |
-          sed -i 's/\r$//' gradlew
-          chmod +x gradlew
+          if [ -f gradlew ]; then
+            sed -i 's/\r$//' gradlew
+            chmod +x gradlew
+          fi
 
       - name: 📦 Cache Gradle packages
         uses: actions/cache@v4
@@ -115,24 +132,28 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: ${{ runner.os }}-gradle-
 
       - name: 📜 Accept Android licenses
         run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses 2>/dev/null || true
 
-      - name: 🔐 Set up Keystore
+      - name: 🔐 Set up Keystore for Release signing
         if: env.KEYSTORE_BASE64 != ''
         run: |
           echo "$KEYSTORE_BASE64" | base64 -d > kidlearn.keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+
+      - name: 📄 Create keystore.properties
+        if: env.KEYSTORE_BASE64 != ''
+        run: |
           cat > keystore.properties << 'EOF'
           storePassword=${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword=${{ secrets.KEY_PASSWORD }}
           keyAlias=${{ secrets.KEY_ALIAS }}
           storeFile=kidlearn.keystore
           EOF
-        env:
-          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
 
       - name: 🚀 Build Signed Release APK
         if: env.KEYSTORE_BASE64 != ''
@@ -143,32 +164,99 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
-      - name: 📤 Upload Signed Release APK
-        if: env.KEYSTORE_BASE64 != ''
+      - name: 🔓 Build Unsigned Release APK
+        if: env.KEYSTORE_BASE64 == ''
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🔓 Building UNSIGNED Release APK"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          ./gradlew assembleRelease
+          echo ""
+          echo "✅ Unsigned Release APK built successfully!"
+
+      - name: 📤 Upload Release APK
         uses: actions/upload-artifact@v4
         with:
           name: app-release-apk
           path: app/build/outputs/apk/release/*.apk
           retention-days: 30
 
-      - name: ⚠️ Build Unsigned Release APK
-        if: env.KEYSTORE_BASE64 == ''
-        run: |
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "🔓 Building UNSIGNED Release APK"
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo ""
-          echo "Note: Release APK will be unsigned (no keystore configured)."
-          echo "This is fine for testing, but you need to sign it before publishing."
-          echo ""
-          ./gradlew assembleRelease
-          echo ""
-          echo "✅ Unsigned Release APK built successfully!"
+  create-release:
+    name: 🎉 Create GitHub Release
+    needs: [build-debug, build-release]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.build_type == 'release')
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
 
-      - name: 📤 Upload Unsigned Release APK
-        if: env.KEYSTORE_BASE64 == ''
-        uses: actions/upload-artifact@v4
+      - name: 📥 Download Debug APK
+        uses: actions/download-artifact@v4
         with:
-          name: app-release-unsigned-apk
-          path: app/build/outputs/apk/release/*.apk
-          retention-days: 30
+          name: app-debug-apk
+          path: release-apks
+
+      - name: 📥 Download Release APK
+        uses: actions/download-artifact@v4
+        with:
+          name: app-release-apk
+          path: release-apks
+
+      - name: 🏷️ Generate version tag
+        id: gen_tag
+        run: |
+          DATE=$(date +%Y.%m.%d)
+          TIME=$(date +%H%M)
+          TAG="v${DATE}-${TIME}"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "✅ Generated tag: $TAG"
+
+      - name: 📝 Create release notes
+        id: release_notes
+        run: |
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          echo "## KidLearn Android App" >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+          echo "### Build Information" >> $GITHUB_OUTPUT
+          echo "- **Build Time**: $(date '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_OUTPUT
+          echo "- **Commit**: \`${GITHUB_SHA:0:8}\`" >> $GITHUB_OUTPUT
+          echo "- **Branch**: \`${GITHUB_REF##*/}\`" >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+          echo "### Available APK Files" >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+          echo "| Version | Description |" >> $GITHUB_OUTPUT
+          echo "|---------|-------------|" >> $GITHUB_OUTPUT
+
+          for apk in release-apks/*.apk; do
+            NAME=$(basename "$apk")
+            SIZE=$(du -h "$apk" | cut -f1)
+            if echo "$NAME" | grep -q "debug"; then
+              DESC="Debug build - for development testing"
+            else
+              DESC="Release build - ready to install"
+            fi
+            echo "| $NAME ($SIZE) | $DESC |" >> $GITHUB_OUTPUT
+          done
+
+          echo "" >> $GITHUB_OUTPUT
+          echo "### How to Install" >> $GITHUB_OUTPUT
+          echo "1. Download the APK file to your Android device" >> $GITHUB_OUTPUT
+          echo "2. Enable 'Install from unknown sources' in device settings" >> $GITHUB_OUTPUT
+          echo "3. Open the APK file and install" >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+          echo "---" >> $GITHUB_OUTPUT
+          echo "*Auto-generated by GitHub Actions*" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: 🎉 Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.gen_tag.outputs.tag }}
+          name: "KidLearn Android - ${{ steps.gen_tag.outputs.tag }}"
+          body: ${{ steps.release_notes.outputs.notes }}
+          files: release-apks/*.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
