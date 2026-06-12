@@ -1,10 +1,8 @@
 name: ☀️ Android Build & Release
 
 on:
-  # 每次推送代碼到 main 分支自動構建
   push:
     branches: [ main ]
-  # 也支持手動觸發（workflow_dispatch）
   workflow_dispatch:
     inputs:
       build_type:
@@ -23,19 +21,14 @@ env:
   ANDROID_BUILD_TOOLS: '34.0.0'
 
 jobs:
-  # ============================================================
-  # Job 1: 構建 Debug APK（每次推送都會執行）
-  # ============================================================
   build-debug:
     name: 🔨 Build Debug APK
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || github.event.inputs.build_type == 'debug' || github.event.inputs.build_type == ''
     steps:
-      # 1. 檢出代碼
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
-      # 2. 設置 JDK 17
       - name: ☕ Set up JDK ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v4
         with:
@@ -43,65 +36,42 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
 
-      # 3. 設置 Android SDK
       - name: 🤖 Set up Android SDK
         uses: android-actions/setup-android@v2
 
-      # 4. 下載 Gradle Wrapper JAR（如缺少）
       - name: 📦 Download Gradle Wrapper JAR
         run: |
           if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
             mkdir -p gradle/wrapper
             curl -sL "https://raw.githubusercontent.com/gradle/gradle/v8.4.0/gradle/wrapper/gradle-wrapper.jar" -o gradle/wrapper/gradle-wrapper.jar
-            echo "✅ Gradle Wrapper JAR downloaded"
-          else
-            echo "✅ Gradle Wrapper JAR already exists"
           fi
 
-      # 5. 修復 gradlew 行尾 + 設置執行權限
-      - name: 📦 Download Gradle Wrapper JAR
+      - name: 🔧 Fix gradlew line endings
         run: |
-          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
-            mkdir -p gradle/wrapper
-            curl -sL "https://raw.githubusercontent.com/gradle/gradle/v8.4.0/gradle/wrapper/gradle-wrapper.jar" -o gradle/wrapper/gradle-wrapper.jar
-            echo "✅ Gradle Wrapper JAR downloaded"
-          else
-            echo "✅ Gradle Wrapper JAR already exists"
-          fi
+          sed -i 's/\r$//' gradlew
+          chmod +x gradlew
 
-      - name: 🔧 Fix gradlew line endings and permissions
-        run: |
-          if [ -f gradlew ]; then
-            sed -i 's/\r$//' gradlew
-            chmod +x gradlew
-          fi
-          if [ -f gradlew.bat ]; then
-            sed -i 's/\r$//' gradlew.bat
-          fi
-
-      # 5. 緩存 Gradle 依賴（加速後續構建）
       - name: 📦 Cache Gradle packages
         uses: actions/cache@v4
         with:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: ${{ runner.os }}-gradle-
 
-      # 6. 接受 Android SDK licenses
       - name: 📜 Accept Android licenses
         run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses 2>/dev/null || true
 
-      # 7. 構建 Debug APK
       - name: 🔨 Build Debug APK
-        run: ./gradlew assembleDebug
-        env:
-          # 禁用配置緩存以避免某些 Gradle 插件兼容問題
-          ORG_GRADLE_PROJECT_DISABLE_CACHE_CONFIG: 'false'
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🔧 Building Debug APK"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          ./gradlew assembleDebug
+          echo ""
+          echo "✅ Debug APK built successfully!"
 
-      # 8. 上傳 APK 作為構建產物
       - name: 📤 Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
@@ -109,30 +79,10 @@ jobs:
           path: app/build/outputs/apk/debug/*.apk
           retention-days: 30
 
-      # 9. 顯示 APK 文件大小
-      - name: 📊 Show APK size
-        run: |
-          APK_PATH="app/build/outputs/apk/debug/app-debug.apk"
-          if [ -f "$APK_PATH" ]; then
-            SIZE=$(du -h "$APK_PATH" | cut -f1)
-            echo "✅ Debug APK built successfully!"
-            echo "📦 Size: $SIZE"
-            echo "📍 Location: $APK_PATH"
-          else
-            echo "❌ APK not found!"
-            ls -la app/build/outputs/apk/debug/ 2>/dev/null || echo "Directory does not exist"
-            exit 1
-          fi
-
-  # ============================================================
-  # Job 2: 構建 Release APK（需要秘密變量配置簽名）
-  # ============================================================
   build-release:
     name: 🚀 Build Release APK
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.build_type == 'release'
-    needs: build-debug  # 先確保 debug 能跑通
-
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.build_type == 'release')
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
@@ -152,20 +102,12 @@ jobs:
           if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
             mkdir -p gradle/wrapper
             curl -sL "https://raw.githubusercontent.com/gradle/gradle/v8.4.0/gradle/wrapper/gradle-wrapper.jar" -o gradle/wrapper/gradle-wrapper.jar
-            echo "✅ Gradle Wrapper JAR downloaded"
-          else
-            echo "✅ Gradle Wrapper JAR already exists"
           fi
 
-      - name: 🔧 Fix gradlew line endings and permissions
+      - name: 🔧 Fix gradlew line endings
         run: |
-          if [ -f gradlew ]; then
-            sed -i 's/\r$//' gradlew
-            chmod +x gradlew
-          fi
-          if [ -f gradlew.bat ]; then
-            sed -i 's/\r$//' gradlew.bat
-          fi
+          sed -i 's/\r$//' gradlew
+          chmod +x gradlew
 
       - name: 📦 Cache Gradle packages
         uses: actions/cache@v4
@@ -173,46 +115,26 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: ${{ runner.os }}-gradle-
 
       - name: 📜 Accept Android licenses
         run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses 2>/dev/null || true
 
-      # ---- Release 簽名配置 ----
-      # ⚠️  重要：首次使用需要創建 keystore 和配置 GitHub Secrets
-      # 步驟：
-      # 1. 在本地生成 keystore：
-      #    keytool -genkey -v -keystore kidlearn.keystore -alias kidlearn -keyalg RSA -keysize 2048 -validity 10000 -storepass <密碼> -keypass <密碼>
-      # 2. 將 keystore 文件轉為 base64：
-      #    base64 -i kidlearn.keystore
-      # 3. 在 GitHub 倉庫 Settings → Secrets → Actions 添加：
-      #    KEYSTORE_BASE64  = <base64 字符串>
-      #    KEYSTORE_PASSWORD = <storepass 密碼>
-      #    KEY_ALIAS        = kidlearn
-      #    KEY_PASSWORD     = <keypass 密碼>
-      # 4. 推送代碼，release workflow 將自動執行
-      - name: 🔐 Set up Keystore for Release signing
+      - name: 🔐 Set up Keystore
         if: env.KEYSTORE_BASE64 != ''
         run: |
           echo "$KEYSTORE_BASE64" | base64 -d > kidlearn.keystore
-          echo "✅ Keystore file created"
-        env:
-          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-
-      - name: 📄 Create keystore.properties
-        if: env.KEYSTORE_BASE64 != ''
-        run: |
           cat > keystore.properties << 'EOF'
           storePassword=${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword=${{ secrets.KEY_PASSWORD }}
           keyAlias=${{ secrets.KEY_ALIAS }}
           storeFile=kidlearn.keystore
           EOF
-          echo "✅ keystore.properties created"
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
 
-      - name: 🚀 Build Release APK
+      - name: 🚀 Build Signed Release APK
         if: env.KEYSTORE_BASE64 != ''
         run: ./gradlew assembleRelease
         env:
@@ -221,7 +143,7 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
-      - name: 📤 Upload Release APK
+      - name: 📤 Upload Signed Release APK
         if: env.KEYSTORE_BASE64 != ''
         uses: actions/upload-artifact@v4
         with:
@@ -229,20 +151,19 @@ jobs:
           path: app/build/outputs/apk/release/*.apk
           retention-days: 30
 
-      # 如果沒有配置簽名，生成未簽名的 Release APK
-      - name: ⚠️ No keystore configured - Building unsigned APK
+      - name: ⚠️ Build Unsigned Release APK
         if: env.KEYSTORE_BASE64 == ''
         run: |
-          echo "⚠️  Release signing not configured."
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🔓 Building UNSIGNED Release APK"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo ""
-          echo "To enable signed Release builds, add the following GitHub Secrets:"
-          echo "  KEYSTORE_BASE64    - Base64 encoded keystore file"
-          echo "  KEYSTORE_PASSWORD  - Keystore password"
-          echo "  KEY_ALIAS          - Key alias (e.g. kidlearn)"
-          echo "  KEY_PASSWORD       - Key password"
+          echo "Note: Release APK will be unsigned (no keystore configured)."
+          echo "This is fine for testing, but you need to sign it before publishing."
           echo ""
-          echo "Building unsigned Release APK..."
           ./gradlew assembleRelease
+          echo ""
+          echo "✅ Unsigned Release APK built successfully!"
 
       - name: 📤 Upload Unsigned Release APK
         if: env.KEYSTORE_BASE64 == ''
@@ -251,75 +172,3 @@ jobs:
           name: app-release-unsigned-apk
           path: app/build/outputs/apk/release/*.apk
           retention-days: 30
-
-  # ============================================================
-  # Job 3: 測試報告（可選）
-  # ============================================================
-  test:
-    name: 🧪 Unit Tests
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    steps:
-      - name: 📥 Checkout repository
-        uses: actions/checkout@v4
-
-      - name: ☕ Set up JDK ${{ env.JAVA_VERSION }}
-        uses: actions/setup-java@v4
-        with:
-          java-version: ${{ env.JAVA_VERSION }}
-          distribution: 'temurin'
-          cache: 'gradle'
-
-      - name: 🤖 Set up Android SDK
-        uses: android-actions/setup-android@v2
-
-      - name: 📦 Download Gradle Wrapper JAR
-        run: |
-          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
-            mkdir -p gradle/wrapper
-            curl -sL "https://raw.githubusercontent.com/gradle/gradle/v8.4.0/gradle/wrapper/gradle-wrapper.jar" -o gradle/wrapper/gradle-wrapper.jar
-            echo "✅ Gradle Wrapper JAR downloaded"
-          else
-            echo "✅ Gradle Wrapper JAR already exists"
-          fi
-
-      - name: 🔧 Fix gradlew line endings and permissions
-        run: |
-          if [ -f gradlew ]; then
-            sed -i 's/\r$//' gradlew
-            chmod +x gradlew
-          fi
-          if [ -f gradlew.bat ]; then
-            sed -i 's/\r$//' gradlew.bat
-          fi
-
-      - name: 📜 Accept Android licenses
-        run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses 2>/dev/null || true
-
-      - name: 🧪 Run unit tests
-        run: ./gradlew test
-
-  # ============================================================
-  # 構建完成通知（可選：配置 Slack/Discord/Email）
-  # ============================================================
-  notify:
-    name: 🔔 Build Notification
-    runs-on: ubuntu-latest
-    needs: [build-debug, test]
-    if: always()
-    steps:
-      - name: ✅ Build Summary
-        run: |
-          echo ""
-          echo "========================================"
-          echo "  ☀️  KidLearn Android Build Complete"
-          echo "========================================"
-          echo "  📅 Date: $(date '+%Y-%m-%d %H:%M:%S')"
-          echo "  🔗 Commit: ${{ github.sha }}"
-          echo "  📝 Message: ${{ github.event.head_commit.message }}"
-          echo ""
-          echo "  📦 Artifacts:"
-          echo "     - Debug APK: app/build/outputs/apk/debug/"
-          echo ""
-          echo "  📥 Download: https://github.com/${{ github.repository }}/actions"
-          echo "========================================"
