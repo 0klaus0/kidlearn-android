@@ -73,12 +73,13 @@ class AgeSelectActivity : AppCompatActivity() {
     }
 
     private fun updateSelection(age: AgeGroup) {
-        // 重置所有按钮背景
-        binding.btnAge23.setBackgroundResource(R.drawable.bg_age_button)
-        binding.btnAge45.setBackgroundResource(R.drawable.bg_age_button)
-        binding.btnAge56.setBackgroundResource(R.drawable.bg_age_button)
+        // 重置所有按钮背景和 tint
+        listOf(binding.btnAge23, binding.btnAge45, binding.btnAge56).forEach { btn ->
+            btn.setBackgroundResource(R.drawable.bg_age_button)
+            btn.backgroundTintList = null
+        }
 
-        // 高亮选中按钮
+        // 高亮选中按钮 - 使用 selected 背景
         when (age) {
             AgeGroup.AGE_2_3 -> binding.btnAge23.setBackgroundResource(R.drawable.bg_age_button_selected)
             AgeGroup.AGE_4_5 -> binding.btnAge45.setBackgroundResource(R.drawable.bg_age_button_selected)

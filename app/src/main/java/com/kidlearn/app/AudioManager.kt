@@ -35,14 +35,32 @@ class AudioManager private constructor(private val context: Context) : TextToSpe
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
-            // 优先使用中文，如果不可用则使用默认语言
-            val locale = Locale.CHINA
-            val result = tts?.setLanguage(locale)
-            ttsReady = result != TextToSpeech.LANG_MISSING_DATA &&
-                    result != TextToSpeech.LANG_NOT_SUPPORTED
-            // 设置语速为较慢，适合儿童学习
-            tts?.setSpeechRate(0.85f)
-            tts?.setPitch(1.1f)
+            // 嘗試英文（大部分設備都支援）
+            val enResult = tts?.setLanguage(Locale.ENGLISH)
+            val enAvailable = enResult != TextToSpeech.LANG_MISSING_DATA &&
+                    enResult != TextToSpeech.LANG_NOT_SUPPORTED
+
+            if (enAvailable) {
+                ttsReady = true
+                tts?.setSpeechRate(0.85f)
+                tts?.setPitch(1.1f)
+            } else {
+                // 嘗試中文
+                val cnResult = tts?.setLanguage(Locale.CHINA)
+                ttsReady = cnResult != TextToSpeech.LANG_MISSING_DATA &&
+                        cnResult != TextToSpeech.LANG_NOT_SUPPORTED
+                if (ttsReady) {
+                    tts?.setSpeechRate(0.85f)
+                    tts?.setPitch(1.1f)
+                }
+            }
+
+            if (!ttsReady) {
+                Log.w(TAG, "No TTS language available, trying default")
+                ttsReady = true // 仍然設為 ready，讓 TTS 使用系統預設語言
+                tts?.setSpeechRate(0.85f)
+                tts?.setPitch(1.1f)
+            }
         } else {
             Log.e(TAG, "TTS initialization failed")
             ttsReady = false
@@ -71,11 +89,15 @@ class AudioManager private constructor(private val context: Context) : TextToSpe
     fun speakEnglish(text: String) {
         if (!prefs.isSoundEnabled()) return
         if (!ttsReady || tts == null) {
+            Log.w(TAG, "TTS not ready, re-initializing...")
             tts = TextToSpeech(context, this)
             return
         }
         tts?.let {
-            it.language = Locale.ENGLISH
+            val result = it.setLanguage(Locale.ENGLISH)
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.w(TAG, "English TTS not available, using current language")
+            }
             it.setSpeechRate(0.8f)
             it.speak(text, TextToSpeech.QUEUE_FLUSH, null, "kidlearn_en_${System.currentTimeMillis()}")
         }
